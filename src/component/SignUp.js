@@ -44,18 +44,21 @@ export default function SignUp() {
       firstName: data.get("firstName"),
       lastName: data.get("lastName"),
     });
-    fetch("http://localhost:8000/index.php", {
-      method: "POST",
-      headers: { 'Content-Type': 'application/json'}, 
-      body: formDataJSON,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    axios
+      .post("http://localhost:8000/index.php", formDataJSON)
+      .then((response) => console.log(response));
+    // fetch("http://localhost:8000/index.php", {
+    //   method: "POST",
+    //   headers: { 'Content-Type': 'application/json'},
+    //   body: formDataJSON,
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log("Success:", data);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error:", error);
+    //   });
   };
 
   return (
