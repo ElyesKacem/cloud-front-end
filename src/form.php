@@ -6,33 +6,30 @@ $password = "password";
 $dbname = "myDatabase";
 
 // Create connection
-$conn = mysqli_connect($servername, $username, $password);
+$conn = new mysqli($servername, $username, $password);
 
 // Check connection
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
 }
 
 // Create database
-$sql = "CREATE DATABASE".dbname;
-if (mysqli_query($conn, $sql)) {
+$sql = "CREATE DATABASE ".$dbname;
+if ($conn->query($sql) === TRUE) {
   echo "Database created successfully";
 } else {
-  echo "Error creating database: " . mysqli_error($conn);
+  echo "Error creating database: " . $conn->error;
 }
 
 // Close connection
-mysqli_close($conn);
-
-
-
+$conn->close();
 
 // Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
 }
 
 // Create table if it does not exist
@@ -44,10 +41,10 @@ $sql = "CREATE TABLE IF NOT EXISTS person (
   email VARCHAR(50) NOT NULL UNIQUE
 )";
 
-if (mysqli_query($conn, $sql)) {
+if ($conn->query($sql) === TRUE) {
   echo "Table created successfully";
 } else {
-  echo "Error creating table: " . mysqli_error($conn);
+  echo "Error creating table: " . $conn->error;
 }
 
 // Get data from POST
@@ -57,16 +54,15 @@ $password = $_POST["password"];
 $email = $_POST["email"];
 
 // Prepare and execute SQL statement to insert data
-$sql = "INSERT INTO person (firstname, lastname, password, email) VALUES (?, ?, ?, ?)";
-$stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, "ssss", $firstname, $lastname, $password, $email);
+$stmt = $conn->prepare("INSERT INTO person (firstname, lastname, password, email) VALUES (?, ?, ?, ?)");
+$stmt->bind_param("ssss", $firstname, $lastname, $password, $email);
 
-if (mysqli_stmt_execute($stmt)) {
+if ($stmt->execute() === TRUE) {
   echo "Data inserted successfully";
 } else {
-  echo "Error inserting data: " . mysqli_error($conn);
+  echo "Error inserting data: " . $conn->error;
 }
 
 // Close connection
-mysqli_close($conn);
+$conn->close();
 ?>
