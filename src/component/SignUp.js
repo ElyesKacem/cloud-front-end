@@ -13,6 +13,7 @@ import SecurityIcon from "@mui/icons-material/Security";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import axios from "axios";
 
 function Copyright(props) {
   return (
@@ -41,9 +42,10 @@ export default function SignUp() {
     const formDataJSON = JSON.stringify({
       email: data.get("email"),
       password: data.get("password"),
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
+      firstname: data.get("firstName"),
+      lastname: data.get("lastName"),
     });
+    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaa",formDataJSON);
     axios
       .post("http://localhost:8000/index.php", formDataJSON)
       .then((response) => console.log(response));
