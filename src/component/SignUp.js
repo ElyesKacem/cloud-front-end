@@ -45,10 +45,10 @@ export default function SignUp() {
       firstname: data.get("firstName"),
       lastname: data.get("lastName"),
     });
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaa",formDataJSON);
     axios
       .post("http://localhost:8000/index.php", formDataJSON)
-      .then((response) => console.log(response));
+      .then((response) => toast.success("Data send successfully"))
+      .catch((err) => toast.error("Error while sending data."));
     // fetch("http://localhost:8000/index.php", {
     //   method: "POST",
     //   headers: { 'Content-Type': 'application/json'},
