@@ -38,9 +38,16 @@ export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    fetch("path/to/php/file.php", {
+    const formDataJSON = JSON.stringify({
+      email: data.get("email"),
+      password: data.get("password"),
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName"),
+    });
+    fetch("http://localhost:8000/index.php", {
       method: "POST",
-      body: data,
+      headers: { 'Content-Type': 'application/json'}, 
+      body: formDataJSON,
     })
       .then((response) => response.json())
       .then((data) => {
