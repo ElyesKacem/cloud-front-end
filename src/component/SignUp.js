@@ -47,7 +47,7 @@ export default function SignUp() {
       lastname: data.get("lastName"),
     });
     axios
-      .post("http://localhost:8000/index.php", formDataJSON)
+      .post("http://40.115.213.200/index.php", formDataJSON)
       .then((response) => toast.success("Data send successfully"))
       .catch((err) => toast.error("Error while sending data."));
     // fetch("http://localhost:8000/index.php", {
